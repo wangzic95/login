@@ -41,7 +41,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<font color="red" size="2">${sessionScope.loginError }</font>
+							<font color="red" size="2">${loginError }</font>
 						</td>
 					</tr>
 					<tr>

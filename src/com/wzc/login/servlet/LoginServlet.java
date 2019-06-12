@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		//根据用户名查询用户
 		User user =new UserDao().findUser(username);
 		if(!svc.equalsIgnoreCase(verifyc)){
-			request.getSession().setAttribute("loginError", "* 验证码错误");
+			request.setAttribute("loginError", "* 验证码错误");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
@@ -45,11 +45,11 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("user", user);
 				response.sendRedirect("index.jsp");
 			}else {
-				request.getSession().setAttribute("loginError", "* 密码错误");
+				request.setAttribute("loginError", "* 密码错误");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
 		}else {
-			request.getSession().setAttribute("loginError", "* 用户不存在");
+			request.setAttribute("loginError", "* 用户不存在");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		

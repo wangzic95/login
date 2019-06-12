@@ -37,7 +37,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<font color="red" size="2"> ${msg }</font>
+							<font color="red" size="2"> ${registError }</font>
 						</td>
 					</tr>
 					<tr>

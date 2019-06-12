@@ -2,7 +2,6 @@
 <%
 	Object obj = request.getSession().getAttribute("user");
 	if(obj==null){
-		request.getSession().setAttribute("loginError", "* 您还未登录，请先登录！");
 		response.sendRedirect("login.jsp");
 	}
 %>

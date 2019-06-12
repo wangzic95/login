@@ -28,17 +28,17 @@ public class RegistServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String rpsw = request.getParameter("rpsw");
 		if(username==null||username.trim().isEmpty()){
-			request.setAttribute("msg", "用户名不能为空");
+			request.setAttribute("registError", "用户名不能为空");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
 		if(password==null||password.trim().isEmpty()){
-			request.setAttribute("msg", "密码不能为空");
+			request.setAttribute("registError", "密码不能为空");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
 		if(!password.equals(rpsw)){
-			request.setAttribute("msg", "密码不一致");
+			request.setAttribute("registError", "密码不一致");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
@@ -47,7 +47,7 @@ public class RegistServlet extends HttpServlet {
 		if(res){
 			response.sendRedirect("index.jsp");
 		}else {
-			request.setAttribute("msg", "注册失败，该用户名已存在");
+			request.setAttribute("registError", "注册失败，该用户名已存在");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 		}
 	}
