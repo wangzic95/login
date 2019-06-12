@@ -1,0 +1,91 @@
+*{
+	box-sizing: border-box;
+}
+table{
+	width:100%;
+}
+td{
+	padding:0 10px;
+}
+input{
+	width:100%;
+	height:35px;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+	padding:0 10px;
+	margin:8px 0;
+}
+html,body{
+	height: 100%;
+	padding:0 0;
+	margin:0 0;
+  	font-family: 'hiragino sans gb',arial,'microsoft yahei ui','microsoft yahei',simsun,sans-serif;
+   	font-size: 14px;
+}
+body{
+    background:url("../img/backg02.jpg") no-repeat center fixed;
+    background-size: cover;
+}
+.signinpanel {
+	position: absolute;
+  	width: 960px;
+  	height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -480px;
+    margin-top: -250px;
+}
+.signin-desc{
+	width:600px;
+	height:100%;
+	color: rgba(255,255,255,.95);
+	float:left;
+}
+.signin-desc h1{
+	font-size:35px;
+}
+.signin-desc h2{
+	font-size:25px;
+	font-weight: 500;
+}
+.signin-desc p{
+	font-size:20px;
+	padding:10px 80px 0 0;
+}
+.signin-info{
+	background: #fff;
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+    border-radius: 3px;
+    padding: 30px;
+    color: #666;
+    width:360px;
+    display:inline-block;
+}
+.signin-title{
+	color: #333333;
+    font-size: 25px;
+    font-family: "microsoft yahei";
+    font-weight: 500;
+    margin:20px 0;
+}
+.signin-btn{
+	width:100%;
+	height:35px;
+	border-radius: 3px;
+	text-align:center;
+	color: #fff;
+    border: 1px solid #00a3ff;
+    background-color: #00A3FF;
+    margin:8px 0;
+}
+.signin-btn:hover{
+	background-color: #0097ee;
+    border: 1px solid #0097ee;
+}
+.signup-link{
+	font-size: 15px;
+	margin:8px 0;
+    color: #333;
+    display:block;
+}
