@@ -14,13 +14,12 @@ import com.wzc.login.domain.User;
  */
 public class UserDao {
 	/*
-	 * 数据表
-	  CREATE TABLE `user` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `username` varchar(255) DEFAULT NULL,
-	  `password` varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (`id`)
-	 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+	 * 数据库中运行下面的语句
+	  	CREATE TABLE `user` (
+		  `username` varchar(255) NOT NULL,
+		  `password` varchar(255) DEFAULT NULL,
+		  PRIMARY KEY (`username`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	*/
 	
 	//根据用户名查找用户密码
@@ -35,7 +34,6 @@ public class UserDao {
 			pstmt.setString(1, username);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				user.setId(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 			}
@@ -63,7 +61,9 @@ public class UserDao {
 			pstmt.setString(2, psw);
 			res = (pstmt.executeUpdate()==1);
 		}catch (SQLException e) {
-			e.printStackTrace();
+			if(!e.getMessage().contains("PRIMARY")){
+				e.printStackTrace();
+			}
 		}finally {
 			try {
 				if(pstmt!=null)pstmt.close();

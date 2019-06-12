@@ -2,6 +2,7 @@ package com.wzc.login.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.wzc.login.domain.User;
  * @description 登录请求处理类
  * @author WANGZIC
  */
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -34,20 +36,20 @@ public class LoginServlet extends HttpServlet {
 		//根据用户名查询用户
 		User user =new UserDao().findUser(username);
 		if(!svc.equalsIgnoreCase(verifyc)){
-			request.setAttribute("msg", "* 验证码错误");
+			request.getSession().setAttribute("loginError", "* 验证码错误");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
 		if(user!=null){
 			if(user.getPassword().equals(password)){
-				request.setAttribute("msg", "用户："+username+",登陆成功");
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.getSession().setAttribute("user", user);
+				response.sendRedirect("index.jsp");
 			}else {
-				request.setAttribute("msg", "* 密码错误");
+				request.getSession().setAttribute("loginError", "* 密码错误");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
 		}else {
-			request.setAttribute("msg", "* 用户不存在");
+			request.getSession().setAttribute("loginError", "* 用户不存在");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		

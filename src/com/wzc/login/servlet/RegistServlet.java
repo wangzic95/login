@@ -2,6 +2,7 @@ package com.wzc.login.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import com.wzc.login.dao.UserDao;
  * @description 注册请求处理类
  * @author WANGZIC
  */
+@WebServlet("/RegistServlet")
 public class RegistServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -43,10 +45,9 @@ public class RegistServlet extends HttpServlet {
 		UserDao u = new UserDao();
 		boolean res = u.addUser(username,password);
 		if(res){
-			request.setAttribute("msg", "用户："+username+"注册成功，欢迎登录！");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			response.sendRedirect("index.jsp");
 		}else {
-			request.setAttribute("msg", "注册失败");
+			request.setAttribute("msg", "注册失败，该用户名已存在");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 		}
 	}
