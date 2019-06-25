@@ -1,5 +1,8 @@
 package com.wzc.login.domain;
 
+/**
+ * @author WANGZIC
+ */
 public class User {
 	
 	private String username;

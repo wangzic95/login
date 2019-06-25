@@ -21,13 +21,17 @@ public class UserDao {
 		  PRIMARY KEY (`username`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	*/
-	
-	//根据用户名查找用户密码
+
+	/**
+	 * 根据用户名查找用户密码
+	 * @param username 用户名参数
+	 * @return
+	 */
 	public User findUser(String username){
 		String sql = "select * from user where username=?";
 		Connection con =getConnection();
 		PreparedStatement pstmt =null;
-		ResultSet rs = null;
+		ResultSet rs;
 		User user = new User();
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -40,17 +44,17 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if(pstmt!=null)pstmt.close();
-				if(con!=null)con.close();
-			} catch (SQLException e) {		
-				e.printStackTrace();
-			}
+			closeCon(con,pstmt);
 		}
 		return user;
 	}
-	//添加用户
-	public boolean addUser(String username,String psw){
+	/**
+	 * 添加用户
+	 * @param username 用户名
+	 * @param psw 密码
+	 * @return
+	 */
+	public boolean addUser(String username,String password){
 		Connection con = getConnection();
 		PreparedStatement pstmt =null;
 		String sql = "INSERT INTO user(username,password) VALUES(?,?)";
@@ -58,39 +62,60 @@ public class UserDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
-			pstmt.setString(2, psw);
+			pstmt.setString(2, password);
 			res = (pstmt.executeUpdate()==1);
 		}catch (SQLException e) {
 			if(!e.getMessage().contains("PRIMARY")){
 				e.printStackTrace();
+			}else {
+				System.out.println("该用户名已存在");
+				return false;
 			}
 		}finally {
-			try {
-				if(pstmt!=null)pstmt.close();
-				if(con!=null)con.close();
-			}catch (SQLException e) {	
-				e.printStackTrace();
-			}
+			closeCon(con,pstmt);
 		}
 		return res;
 	}
-	//获得连接
-	public static Connection getConnection(){
-		String driver ="com.mysql.jdbc.Driver";//记得依赖mysql-jdbc驱动包
-		String url ="jdbc:mysql://localhost:3306/mytest";//修改为自己的数据库
-		String user ="root";//修改未自己数据库的用户名密码
-		String password ="root";//修改未自己数据库的名密码
+	/**
+	 * 获取连接
+	 */
+	private static Connection getConnection(){
+		//记得依赖mysql-jdbc驱动包
+		String driver ="com.mysql.jdbc.Driver";
+		//修改为自己的数据库
+		String url ="jdbc:mysql://localhost:3306/mytest";
+		//修改未自己数据库的用户名密码
+		String user ="root";
+		//修改未自己数据库的名密码
+		String password ="root";
 		Connection connection =null;
 		try {
 			Class.forName(driver);
 			connection =DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
+
+	/**
+	 * 关闭连接
+	 * @param con 连接实例
+	 * @param pstmt PreparedStatement实例
+	 */
+	private static void closeCon(Connection con, PreparedStatement pstmt){
+		try {
+			if(pstmt!=null) {
+				pstmt.close();
+			}
+			if(con!=null) {
+				con.close();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		//测试方法
 //		System.out.println(new UserDao().findUser("123"));
