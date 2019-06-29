@@ -6,7 +6,7 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
-  	<link href="static/css/login.css" rel="stylesheet">
+  	<link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
   <body>
 	<div class="signinpanel">
 		<div class="signin-desc">

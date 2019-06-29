@@ -18,13 +18,14 @@ public class LogoutServlet extends HttpServlet {
     public LogoutServlet() {
         super();
     }
-    
-    
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("user");
-		response.sendRedirect("login.jsp");
+		response.sendRedirect(request.getContextPath()+"login.jsp");
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
