@@ -18,7 +18,7 @@
 			<div style="text-align:center;">
 				<h1 class="signin-title">用户注册</h1>
 			</div>
-			<form action="RegistServlet" method="post">
+			<form action="${pageContext.request.contextPath}/RegistServlet" method="post">
 				<table>
 					<tr>
 						<td colspan="2">
@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 					    <td colspan="2" valign="middle" align="left">
-					    	<a href="login.jsp" class="signup-link">已有账号？返回登录</a>
+					    	<a href="${pageContext.request.contextPath}/login.jsp" class="signup-link">已有账号？返回登录</a>
 					    </td>
 					</tr>
 				</table>

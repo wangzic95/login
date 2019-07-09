@@ -19,7 +19,7 @@
 				<h1 class="signin-title">用户登录</h1>
 				<p>欢迎登录后台管理系统</p>
 			</div>
-			<form action="LoginServlet" method="post">
+			<form action="${pageContext.request.contextPath}/LoginServlet" method="post">
 				<table>
 					<tr>
 						<td colspan="2">
@@ -54,7 +54,7 @@
 					    	<a href="#" class="signup-link">忘记密码</a>
 					    </td>
 					    <td width="50%" valign="middle" align="right">
-					    	<a href="regist.jsp" class="signup-link">账号注册</a>
+					    	<a href="${pageContext.request.contextPath}/regist.jsp" class="signup-link">账号注册</a>
 					    </td>
 					</tr>
 				</table>
