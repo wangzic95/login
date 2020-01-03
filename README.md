@@ -1,7 +1,7 @@
 # JavaWeb登陆注册说明文档
 
 ## 项目部署
-1. 下载项目：https://github.com/wangzic95/login
+1. 下载项目：https://github.com/wangzic95/login/archive/master.zip
 2. 导入项目
     - 解压下载的包，打开eclipse，右键右侧项目目录空白处，点击import
     - 选择 General>Existing projects into Workspace
