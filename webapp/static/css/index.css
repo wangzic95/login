@@ -3,31 +3,55 @@
 *{
     box-sizing: border-box;
 }
-body,html{height: 100%;}
+body,html,#app{height: 100%;}
 body,ul{margin:0;padding:0}
 body{font-family:"微软雅黑","宋体","Arial Narrow",HELVETICA;-webkit-text-size-adjust:100%;} 
 li{list-style:none} 
 a{text-decoration:none;}
-/* 以上实际使用若已初始化可删除 */
-.container{
+
+#app{
+    height: 100%;
+    position: relative;
+    display: flex;
+}
+
+/* nav */
+.slidebar{
+    width: 240px;
+    height: 100%;
+    background: #263238;
+    transition: width .3s;
+}
+.slidebar-logo{
+    width: 100%;
+    height: 50px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    line-height: 50px;
+    color: #F5F5F5;
+    padding: 0 20px;
+    display: flex;
+}
+.slidebar-logo>.title{
+    font-weight: 600;
+    font-size: 19px;
+    color: #ABB1B7;
+}
+.slidebar-logo>.logo-icon{
+    font-size: 25px;
+    margin-right: 5px;
+}
+.fold>.slidebar-logo>.title{
+    display: none;
+}
+.slidebar-warpper{
     position: absolute;
     top: 51px;
     bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-
+    width: 240px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-/* nav */
-.container-nav{
-    position: absolute;
-    width: 220px;
-    top: 0;
-    bottom: 0;
-    background: #263238;
-    transition: all .3s;
-}
-.container-nav a{display: block;overflow: hidden;padding-left: 15px;line-height: 46px;max-height: 46px;color: #ABB1B7;transition: all .2s;}
+.slidebar a{display: block;overflow: hidden;padding-left: 15px;line-height: 46px;max-height: 46px;color: #ABB1B7;transition: all .2s;}
 .nav-item{position: relative;border-bottom:1px solid rgba(0,0,0,.1);}
 .nav-item.nav-show{border-bottom: none;}
 .nav-item ul{display: none;background: rgba(0,0,0,.1);}
@@ -39,58 +63,43 @@ a{text-decoration:none;}
 .nav-show>a:before,.nav-item>a:hover:before{opacity:1;}
 .nav-item li a{padding-left: 50px;}
 .nav-item li:hover a{color: #FFF;background: rgba(0, 0, 0,.1);}
-.fold-btn{border-bottom:1px solid rgba(255,255,255,.1);color:#ABB1B7;padding:9px 15px 8px;}
+
 /* nav-mini */
-.container.fold .container-nav{width: 60px;}
-.container.fold .container-nav .nav-item>a span{display: none;}
-.container.fold .container-nav .nav-more{margin-right: -20px;}
-.container.fold .container-nav .nav-item ul{position: absolute;top:0;left:60px;width: 180px;z-index: 99;background:#3C474C;overflow: hidden;}
-.container.fold .container-nav .nav-item:hover{background:rgba(255,255,255,.1);}
-.container.fold .container-nav .nav-item:hover .nav-item a{color:#FFF;}
-.container.fold .container-nav .nav-item:hover a:before{opacity:1;}
-.container.fold .container-nav .nav-item:hover ul{display: block;}
+.slidebar.fold{width: 60px;}
+.slidebar.fold .nav-item>a span{display: none;}
+.slidebar.fold .nav-more{margin-right: -20px;}
+.slidebar.fold .nav-item ul{position: absolute;top:0;left:60px;width: 180px;z-index: 99;background:#3C474C;overflow: hidden;}
+.slidebar.fold .nav-item:hover{background:rgba(255,255,255,.1);}
+.slidebar.fold .nav-item:hover .nav-item a{color:#FFF;}
+.slidebar.fold .nav-item:hover a:before{opacity:1;}
+.slidebar.fold .nav-item:hover ul{display: block;}
 
-/* main */
-.container .container-main{
-    position:absolute;
-    left:220px;
-    right:0;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition: all .2s;
-    background-color: #EFEFEF;
-    padding: 15px;
+.container{
+    flex-grow: 1;
+    transition: width .3s;
 }
-.container.fold .container-main{left:60px;}
 
-.header{
-    position:fixed;
-    z-index:999999;
-    top:0;
+.navbar{
     height:50px;
-    left: 0;
-    right: 0;
+    width: 100%;
     background: #fff;
-    box-shadow:0 1px 2px rgba(0,0,0,0.3);
+    box-shadow:0 3px 10px rgba(0,0,0,0.3);
     transition: all .2s;
 }
-.header h1{
-    margin: 0;
-    font-size: 22px;
+.navbar .fold-btn{
     display: inline-block;
+    color:#2C2C2C;
     line-height: 50px;
-    width: 250px;
-    padding: 0 20px;
-    overflow: hidden;
+    padding: 0 15px;
+    font-size: 22px;
+    cursor: pointer;
 }
-.header>span{
+.navbar>span{
     line-height: 50px;
     height: 50px;
     float: right;
 }
-.header>a{
+.navbar>a{
     display: block;
     float: right;
     height: 50px;
@@ -98,7 +107,27 @@ a{text-decoration:none;}
     margin: 0 15px;
     color:#333333;
 }
-
+/* main */
+.container-main{
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all .3s;
+    background-color: #EFEFEF;
+    position: relative;
+}
+.iframe-full {
+    width: calc(100% - 20px);
+    height: calc(100% - 30px);
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 10px;
+    right: 10px;
+    border: none;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    border-radius: 3px;
+}
 
 
 

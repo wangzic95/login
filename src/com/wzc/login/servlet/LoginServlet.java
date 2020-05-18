@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		User user =new UserDao().selectByUsername(username);
 		if(!svc.equalsIgnoreCase(verifyc)){
 			request.setAttribute("loginError", "* 验证码错误");
-			request.getRequestDispatcher(request.getContextPath()+"/login.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}
 		if(user!=null){
@@ -47,11 +47,11 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect("index.jsp");
 			}else {
 				request.setAttribute("loginError", "* 密码错误");
-				request.getRequestDispatcher(request.getContextPath()+"/login.jsp").forward(request, response);
+				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}else {
 			request.setAttribute("loginError", "* 用户不存在");
-			request.getRequestDispatcher(request.getContextPath()+"/login.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		
 	}

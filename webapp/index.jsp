@@ -10,62 +10,68 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>后台管理系统</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/app.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/font-awesome-4.7.0/css/font-awesome.min.css">
 	<script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
 </head>
 <body>
-<div class="header" >
-	<h1>后台管理系统</h1>
-	<a href="${pageContext.request.contextPath}/LogoutServlet"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
-	<span>当前用户：${sessionScope.user.username }</span>
-</div>
-<div class="container">
-	<div class="container-nav">
-		<div class="nav-top" ><div class="fold-btn" ><i class="fa fa-bars fa-2x"></i></div></div>
-		<ul>
-			<li class="nav-item">
-				<a href="${pageContext.request.contextPath}/workbench.jsp" target="mainframe">
-					<i class="fa fa-home fa-fw fa-lg"></i>
-					<span>工作台</span></a>
-			</li>
-			<li class="nav-item">
-				<a href="${pageContext.request.contextPath}/UserServlet?act=select" target="mainframe">
-					<i class="fa fa-file-text-o fa-fw fa-lg"></i>
-					<span>用户管理</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;">
-					<i class="fa fa-cog fa-fw fa-lg"></i>
-					<span>网站配置</span>
-					<i class="nav-more fa fa-chevron-right"></i>
-				</a>
-				<ul>
-					<li><a href="javascript:;" target="mainframe"><span>网站设置</span></a></li>
-					<li><a href="javascript:;" target="mainframe"><span>友情链接</span></a></li>
-					<li><a href="javascript:;" target="mainframe"><span>分类管理</span></a></li>
-					<li><a href="javascript:;" target="mainframe"><span>系统日志</span></a></li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;">
-					<i class="fa fa-book fa-fw fa-lg"></i>
-					<span>系统管理</span>
-					<i class="nav-more fa fa-chevron-right"></i>
-				</a>
-				<ul>
-					<li><a href="javascript:;" target="mainframe"><span>菜单管理</span></a></li>
-					<li><a href="javascript:;" target="mainframe"><span>权限管理</span></a></li>
-					<li><a href="javascript:;" target="mainframe"><span>日志管理</span></a></li>
-				</ul>
-			</li>
-			<li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" ><i class="fa fa-sign-out fa-fw fa-lg"></i> <span>退出登录</span></a></li>
-		</ul>
-	</div>
-	<div class="container-main">
-		<iframe name="mainframe" src="${pageContext.request.contextPath}/workbench.jsp" frameborder="0" style="width:100%;min-height:100%;background-color: #FFF;"></iframe>
-	</div>
+<div id="app">
+    <div class="slidebar">
+        <div class="slidebar-logo" >
+            <div class="logo-icon"><i class="fa fa-cog fa-spin"></i></div>
+            <span class="title">后台管理系统</span>
+        </div>
+        <ul class="slidebar-warpper">
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/workbench.jsp" target="mainframe">
+                    <i class="fa fa-home fa-fw fa-lg"></i>
+                    <span>工作台</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/UserServlet?act=select" target="mainframe">
+                    <i class="fa fa-file-text-o fa-fw fa-lg"></i>
+                    <span>用户管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-cog fa-fw fa-lg"></i>
+                    <span>网站配置</span>
+                    <i class="nav-more fa fa-chevron-right"></i>
+                </a>
+                <ul>
+                    <li><a href="javascript:;" target="mainframe"><span>网站设置</span></a></li>
+                    <li><a href="javascript:;" target="mainframe"><span>友情链接</span></a></li>
+                    <li><a href="javascript:;" target="mainframe"><span>分类管理</span></a></li>
+                    <li><a href="javascript:;" target="mainframe"><span>系统日志</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-book fa-fw fa-lg"></i>
+                    <span>系统管理</span>
+                    <i class="nav-more fa fa-chevron-right"></i>
+                </a>
+                <ul>
+                    <li><a href="javascript:;" target="mainframe"><span>菜单管理</span></a></li>
+                    <li><a href="javascript:;" target="mainframe"><span>权限管理</span></a></li>
+                    <li><a href="javascript:;" target="mainframe"><span>日志管理</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" ><i class="fa fa-sign-out fa-fw fa-lg"></i> <span>退出登录</span></a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="navbar">
+            <div class="fold-btn" ><i class="fa fa-bars"></i></div>
+            <a href="${pageContext.request.contextPath}/LogoutServlet"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+            <span>当前用户：${sessionScope.user.username }</span>
+        </div>
+        <div class="container-main">
+            <iframe name="mainframe" src="${pageContext.request.contextPath}/workbench.jsp" frameborder="0" class="iframe-full"></iframe>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
     $(function(){
@@ -88,7 +94,8 @@
         $('.fold-btn').on('click',function(){
             $('.nav-item.nav-show').toggleClass('nav-show');
             // $('.nav-item').children('ul').removeAttr('style');
-            $('.container').toggleClass("fold");
+            $('.slidebar').toggleClass("fold");
+            $('.fold-btn>.fa').toggleClass("fa-rotate-90");
         });
     });
 </script>

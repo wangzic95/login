@@ -28,30 +28,34 @@ public class RegistServlet extends HttpServlet {
 		String rpsw = request.getParameter("rpsw");
 		if(username==null||username.trim().isEmpty()){
 			request.setAttribute("registError", "用户名不能为空");
-			request.getRequestDispatcher(request.getContextPath()+"/regist.jsp").forward(request, response);
+			request.getRequestDispatcher("regist.jsp").forward(request, response);
 			return;
 		}
 		if(password==null||password.trim().isEmpty()){
 			request.setAttribute("registError", "密码不能为空");
-			request.getRequestDispatcher(request.getContextPath()+"/regist.jsp").forward(request, response);
+			request.getRequestDispatcher("regist.jsp").forward(request, response);
 			return;
 		}
 		if(!password.equals(rpsw)){
 			request.setAttribute("registError", "密码不一致");
-			request.getRequestDispatcher(request.getContextPath()+"/regist.jsp").forward(request, response);
+			request.getRequestDispatcher("regist.jsp").forward(request, response);
 			return;
 		}
 		UserDao dao = new UserDao();
 		User user =new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		boolean res = dao.insert(user);
-		if(res){
-			response.sendRedirect(request.getContextPath()+"/index.jsp");
-		}else {
-			request.setAttribute("registError", "注册失败，该用户名已存在");
-			request.getRequestDispatcher(request.getContextPath()+"/regist.jsp").forward(request, response);
-		}
+		if(dao.selectByUsername(username)!=null){
+            request.setAttribute("registError", "注册失败，该用户名已存在");
+            request.getRequestDispatcher("regist.jsp").forward(request, response);
+        }else {
+            if(dao.insert(user)){
+                response.sendRedirect("index.jsp");
+            }else {
+                request.setAttribute("registError", "注册失败，发生未知错误");
+                request.getRequestDispatcher("regist.jsp").forward(request, response);
+            }
+        }
 	}
 	
 	@Override

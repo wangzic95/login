@@ -66,13 +66,13 @@ public class UserServlet extends HttpServlet {
 		Integer userid =Integer.valueOf(request.getParameter("userid"));
 		User user = dao.selectByUserId(userid);
 		request.setAttribute("updateUser", user);
-		request.getRequestDispatcher(request.getContextPath()+"/modules/usermgr/update.jsp").forward(request, response);
+		request.getRequestDispatcher("pages/usermgr/update.jsp").forward(request, response);
 	}
 
 	private void selectAllUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<User> list = dao.selectByMap(new HashMap<>(0));
+		List<User> list = dao.selectByMap(new HashMap<String,Object>(0));
 		request.setAttribute("userList", list);
-		request.getRequestDispatcher(request.getContextPath()+"/modules/usermgr/index.jsp").forward(request, response);
+		request.getRequestDispatcher("pages/usermgr/index.jsp").forward(request, response);
 	}
 
 	private void insertUser(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -107,10 +107,10 @@ public class UserServlet extends HttpServlet {
 		}
 		if(dao.insert(user)){
 			request.getSession().setAttribute("resultMSG", "新增成功");
-			response.sendRedirect(request.getContextPath()+"/modules/usermgr/index.jsp");
+			response.sendRedirect("UserServlet?act=select");
 		}else {
 			request.getSession().setAttribute("resultMSG", "新增失败");
-			request.getRequestDispatcher(request.getContextPath()+"/modules/usermgr/insert.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/usermgr/insert.jsp").forward(request, response);
 		}
 	}
 
@@ -121,7 +121,7 @@ public class UserServlet extends HttpServlet {
 		}else {
 			request.getSession().setAttribute("resultMSG", "删除失败");
 		}
-		response.sendRedirect(request.getContextPath()+"/modules/usermgr/index.jsp");
+		response.sendRedirect("UserServlet?act=select");
 	}
 
 	private void updateUser(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -160,11 +160,11 @@ public class UserServlet extends HttpServlet {
 		}
 		if(dao.update(user)){
 			request.getSession().setAttribute("resultMSG", "修改成功");
-			response.sendRedirect(request.getContextPath()+"/modules/usermgr/index.jsp");
+			response.sendRedirect("UserServlet?act=select");
 		}else {
 			request.setAttribute("updateUser", user);
 			request.getSession().setAttribute("resultMSG","修改失败");
-			request.getRequestDispatcher(request.getContextPath()+"/modules/usermgr/update.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/usermgr/update.jsp").forward(request, response);
 		}
 	}
 }

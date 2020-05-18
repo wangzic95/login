@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.wzc.login.common.utils.DBUtil;
 import com.wzc.login.domain.User;
 /**
  * @description 数据库连接与操作类用于增删改查数据并返回给servlet使用
@@ -24,7 +25,7 @@ public class UserDao {
 	 * @return 新增是否成功
 	 */
 	public boolean insert(User user) {
-		Connection con = getConnection();
+		Connection con = DBUtil.getConnection();
 		PreparedStatement pstmt =null;
 		String sql = "INSERT INTO user(username,nickname,password,gender,phone,email,address) VALUES(?,?,?,?,?,?,?)";
 		boolean res = false;
@@ -46,7 +47,7 @@ public class UserDao {
 				return false;
 			}
 		}finally {
-			closeCon(con,pstmt);
+            DBUtil.close(con,pstmt);
 		}
 		return res;
 
@@ -58,7 +59,7 @@ public class UserDao {
 	 * @return 删除是否成功
 	 */
 	public boolean delete(Integer userid) {
-		Connection con = getConnection();
+		Connection con = DBUtil.getConnection();
 		PreparedStatement pstmt =null;
 		String sql = "delete from user where userid= ?";
 		boolean res = false;
@@ -70,8 +71,8 @@ public class UserDao {
 			e.printStackTrace();
 			return false;
 		}finally {
-			closeCon(con,pstmt);
-		}
+            DBUtil.close(con,pstmt);
+        }
 		return res;
 	}
 
@@ -81,7 +82,7 @@ public class UserDao {
 	 * @return 更新是否成功
 	 */
 	public boolean update(User user) {
-		Connection con = getConnection();
+		Connection con = DBUtil.getConnection();
 		PreparedStatement pstmt =null;
 		String sql = "update user set username=?,nickname=?,password=?,gender=?,phone=?,email=?,address=? where userid= ?";
 		boolean res = false;
@@ -100,7 +101,7 @@ public class UserDao {
 			e.printStackTrace();
 			return false;
 		}finally {
-			closeCon(con,pstmt);
+			DBUtil.close(con,pstmt);
 		}
 		return res;
 
@@ -112,9 +113,9 @@ public class UserDao {
 	 * @return 用户信息
 	 */
 	public User selectByUsername(String username){
+        Connection con = DBUtil.getConnection();
 		List<User> list = new ArrayList<>();
 		String sql = "select * from user where username=?";
-		Connection con =getConnection();
 		PreparedStatement pstmt =null;
 		ResultSet rs;
 		try {
@@ -125,8 +126,8 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			closeCon(con,pstmt);
-		}
+            DBUtil.close(con,pstmt);
+        }
 		return list.isEmpty()?null:list.get(0);
 	}
 
@@ -136,9 +137,9 @@ public class UserDao {
 	 * @return 用户信息
 	 */
 	public User selectByUserId(Integer userid) {
+        Connection con =DBUtil.getConnection();
 		List<User> list = new ArrayList<>();
 		String sql = "select * from user where userid= ?";
-		Connection con =getConnection();
 		PreparedStatement pstmt =null;
 		ResultSet rs;
 		try {
@@ -149,8 +150,8 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			closeCon(con,pstmt);
-		}
+            DBUtil.close(con,pstmt);
+        }
 		return list.isEmpty()?null:list.get(0);
 	}
 
@@ -160,14 +161,14 @@ public class UserDao {
 	 * @return 用户列表
 	 */
 	public List<User> selectByMap(Map<String,Object> paramMap) {
-		List<User> list = new ArrayList<>();
+        Connection con = DBUtil.getConnection();
+	    List<User> list = new ArrayList<>();
 		StringBuilder sql =new StringBuilder("select * from user where 1=1");
 		List<Object> paramList = new ArrayList<>();
 		for(String key:paramMap.keySet()){
 			sql.append(" and ").append(key).append(" = ?");
 			paramList.add(paramMap.get(key));
 		}
-		Connection con =getConnection();
 		PreparedStatement pstmt =null;
 		try {
 			pstmt = con.prepareStatement(sql.toString());
@@ -178,8 +179,8 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			closeCon(con,pstmt);
-		}
+            DBUtil.close(con,pstmt);
+        }
 		return list;
 	}
 
@@ -207,45 +208,7 @@ public class UserDao {
 	}
 
 
-	/**
-	 * 获取JDBC连接
-	 */
-	private static Connection getConnection(){
-		//记得依赖mysql-jdbc驱动包
-		String driver ="com.mysql.jdbc.Driver";
-		//修改为自己的数据库
-		String url ="jdbc:mysql://localhost:3306/mytest";
-		//修改未自己数据库的用户名密码
-		String user ="root";
-		//修改未自己数据库的名密码
-		String password ="root";
-		Connection connection =null;
-		try {
-			Class.forName(driver);
-			connection =DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
 
-	/**
-	 * 关闭JDBC连接
-	 * @param con 连接实例
-	 * @param pstmt PreparedStatement实例
-	 */
-	private static void closeCon(Connection con, PreparedStatement pstmt){
-		try {
-			if(pstmt!=null) {
-				pstmt.close();
-			}
-			if(con!=null) {
-				con.close();
-			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 测试数据库连接是否正常

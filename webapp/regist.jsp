@@ -5,7 +5,8 @@
     <title>登录页面</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="expires" content="0">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/app.css">
   	<link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
   <body>
 	<div class="signinpanel">

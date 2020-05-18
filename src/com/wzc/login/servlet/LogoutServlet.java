@@ -22,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("user");
-		response.sendRedirect(request.getContextPath()+"login.jsp");
+		response.sendRedirect("login.jsp");
 	}
 
 	@Override
